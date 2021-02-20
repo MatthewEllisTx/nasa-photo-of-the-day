@@ -44,7 +44,7 @@ export default function ContentBoxes(){
     return (
         <ColumnStyled>
             {console.log(data)}
-            {data.map( content => <ContentBox key={content.id} content={content}/>)}
+            {data.map( content => <ContentBox key={content.date} content={content}/>)}
         </ColumnStyled>
     )
 }
