@@ -1,5 +1,30 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import Image from './Image';
+
+const BoxStyled = styled.div`
+    margin: 0 auto;
+    width: 90%;
+`
+
+const SurrondingStyle = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const ButtonStyled = styled.p`
+    transform: rotate(${props => props.flipButton ? '180deg' : '0deg'});
+    transition: transform 0.5s;
+`
+
+const DescriptionBoxStyled = styled.div`
+    height: auto;
+    max-height: ${props => {
+        return props.showDescription ? '1000px' : 0
+    }};
+    overflow: hidden;
+    transition: max-height 0.5s;
+`
 
 export default function ContentBox({content}){
     const [showDescription, setShowDescription] = useState(false);
@@ -11,20 +36,22 @@ export default function ContentBox({content}){
     const title = content.title;
     const url = content.url;
 
+    console.log(showDescription);
+
     return (
-        <div>
-            <div>
+        <BoxStyled>
+            <SurrondingStyle>
                 <h2>{title}</h2>
                 <h2>{date}</h2>
-            </div>
+            </SurrondingStyle>
             <Image url={url} hdurl={hdurl} date={date}/>
-            <div>
+            <SurrondingStyle>
                 <p>{copyright}</p>
-                <div onClick={setShowDescription(!description)}></div>
-            </div>
-            <div>
+                <ButtonStyled flipButton={showDescription} onClick={() => setShowDescription(!showDescription)}>V</ButtonStyled>
+            </SurrondingStyle>
+            <DescriptionBoxStyled showDescription={showDescription}>
                 <p>{description}</p>
-            </div>
-        </div>
+            </DescriptionBoxStyled>
+        </BoxStyled>
     )
 }
